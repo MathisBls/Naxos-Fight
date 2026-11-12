@@ -1,0 +1,66 @@
+const DICTIONARY = {
+  fr: {
+    gameTitle: 'NAXOS FIGHT',
+    titleFooter: '© NAXOS FIGHT · DÉMO',
+    selectTitle: 'CHOISIS TON COMBATTANT',
+    pressStart: 'ENTRÉE OU ESPACE : COMBATTRE',
+    browseHint: '< > : CHOISIR',
+    locked: 'BIENTÔT',
+    lockedName: '???',
+    lockedBio: 'CE COMBATTANT ARRIVE DANS UNE PROCHAINE VERSION.',
+    statPower: 'PUISSANCE',
+    statSpeed: 'VITESSE',
+    statStamina: 'ENDURANCE',
+    movesTitle: 'SUPER ATTAQUES',
+    training: 'ENTRAÎNEMENT',
+    backHint: 'ÉCHAP : RETOUR',
+    controlsMove: '< > : BOUGER',
+    controlsJump: 'HAUT : SAUTER',
+    controlsCrouch: 'BAS : ACCROUPI',
+    controlsPunch: 'J / ESPACE : POING',
+    controlsKick: 'K : PIED',
+    loading: 'CHARGEMENT…',
+    designerName: 'LE DESIGNER',
+    designerRole: 'UX DESIGNER',
+    designerBio: 'IL ALIGNE SES COUPS AU PIXEL PRÈS ET TESTE CHAQUE ENCHAÎNEMENT AUPRÈS DES UTILISATEURS.',
+    designerMove1: 'COUP DE MAQUETTE',
+    designerMove2: 'RETOUR UTILISATEUR',
+    designerMove3: 'PIXEL PERFECT',
+  },
+  en: {
+    gameTitle: 'NAXOS FIGHT',
+    titleFooter: '© NAXOS FIGHT · DEMO',
+    selectTitle: 'CHOOSE YOUR FIGHTER',
+    pressStart: 'ENTER OR SPACE: FIGHT',
+    browseHint: '< >: SELECT',
+    locked: 'SOON',
+    lockedName: '???',
+    lockedBio: 'THIS FIGHTER JOINS IN A FUTURE VERSION.',
+    statPower: 'POWER',
+    statSpeed: 'SPEED',
+    statStamina: 'STAMINA',
+    movesTitle: 'SUPER MOVES',
+    training: 'TRAINING',
+    backHint: 'ESC: BACK',
+    controlsMove: '< >: MOVE',
+    controlsJump: 'UP: JUMP',
+    controlsCrouch: 'DOWN: CROUCH',
+    controlsPunch: 'J / SPACE: PUNCH',
+    controlsKick: 'K: KICK',
+    loading: 'LOADING…',
+    designerName: 'THE DESIGNER',
+    designerRole: 'UX DESIGNER',
+    designerBio: 'HE ALIGNS EVERY HIT TO THE PIXEL AND USER-TESTS EACH COMBO.',
+    designerMove1: 'MOCKUP SMASH',
+    designerMove2: 'USER FEEDBACK',
+    designerMove3: 'PIXEL PERFECT',
+  },
+};
+
+const FALLBACK_LANGUAGE = 'fr';
+const language = navigator.language?.toLowerCase().startsWith('fr') ? 'fr' : 'en';
+document.documentElement.lang = language;
+
+export function t(key) {
+  return DICTIONARY[language][key] ?? DICTIONARY[FALLBACK_LANGUAGE][key] ?? key;
+}
