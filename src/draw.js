@@ -10,8 +10,19 @@ export const COLORS = {
   panel: '#151230',
   panelLight: '#2c2760',
   locked: '#211d3d',
+  slot: '#23306a',
   floor: '#5b4bb3',
   grid: '#2a1f5c',
+  ground: '#0a0820',
+  skyTop: '#0d0b22',
+  skyBottom: '#030208',
+  star: '#cfd3ff',
+  starDim: '#4a4880',
+  dust: '#6d6494',
+  sparkHot: '#ffb347',
+  barShine: 'rgba(255, 255, 255, 0.35)',
+  barShade: 'rgba(0, 0, 0, 0.25)',
+  barEmpty: '#2a0d14',
 };
 
 const DIACRITICS = /[̀-ͯ]/g;

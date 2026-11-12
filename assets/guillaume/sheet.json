@@ -1,27 +1,21 @@
 {
   "character": {
     "id": "a01bdd1b-3a45-48c4-8753-21c0353fbe4a",
-    "name": "Idle",
-    "prompt": "Man with long dark brown wavy hair down to the shoulders, short salt-and-pepper beard and mustache, intense look. Light blue button-up shirt with rolled sleeves, dark navy jeans, black belt with silver buckle, black leather shoes. 16-bit arcade fighting game character, fists raised in a boxing guard.",
     "size": {
       "width": 64,
       "height": 96
-    },
-    "directions": 8,
-    "view": "side"
+    }
   },
   "spritesheet": {
-    "path": "Man_with_long_dark_brown-Idle.png",
     "cell_size": {
-      "width": 132,
-      "height": 132
+      "width": 188,
+      "height": 188
     },
     "sheet_size": {
-      "width": 1056,
-      "height": 528
+      "width": 1504,
+      "height": 3948
     },
     "columns": 8,
-    "pivot": "cell-center",
     "rows": [
       {
         "row": 0,
@@ -42,28 +36,143 @@
         "row": 1,
         "type": "animation",
         "frame_count": 8,
-        "animation": "Right Punch",
-        "animation_group_id": "3545c5e6-47e0-4e5a-9467-e47bd9b9e6cc",
+        "animation": "Idle",
         "direction": "east"
       },
       {
         "row": 2,
         "type": "animation",
         "frame_count": 8,
-        "animation": "High Kick",
-        "animation_group_id": "d5f931f5-c9bc-456c-b949-7940b5b17150",
+        "animation": "Guard Walk",
         "direction": "east"
       },
       {
         "row": 3,
         "type": "animation",
         "frame_count": 8,
-        "animation": "Walking",
-        "animation_group_id": "ebf4cb29-401d-4b4a-b49f-09a0a0e0161f",
+        "animation": "Jump",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 4,
+        "animation": "Crouch",
+        "direction": "east"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Right Punch",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Uppercut",
+        "direction": "east"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Light Kick",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "High Kick",
+        "direction": "east"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Crouch Punch",
+        "direction": "east"
+      },
+      {
+        "row": 10,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Sweep",
+        "direction": "east"
+      },
+      {
+        "row": 11,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Jump Punch",
+        "direction": "east"
+      },
+      {
+        "row": 12,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Jump Kick",
+        "direction": "east"
+      },
+      {
+        "row": 13,
+        "type": "animation",
+        "frame_count": 4,
+        "animation": "Block",
+        "direction": "east"
+      },
+      {
+        "row": 14,
+        "type": "animation",
+        "frame_count": 4,
+        "animation": "Crouch Block",
+        "direction": "east"
+      },
+      {
+        "row": 15,
+        "type": "animation",
+        "frame_count": 4,
+        "animation": "Hurt",
+        "direction": "east"
+      },
+      {
+        "row": 16,
+        "type": "animation",
+        "frame_count": 4,
+        "animation": "Crouch Hurt",
+        "direction": "east"
+      },
+      {
+        "row": 17,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Knockdown",
+        "direction": "east"
+      },
+      {
+        "row": 18,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Get Up",
+        "direction": "east",
+        "shift_x": -10
+      },
+      {
+        "row": 19,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Victory",
+        "direction": "east"
+      },
+      {
+        "row": 20,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "KO",
         "direction": "east"
       }
     ]
-  },
-  "export_version": "1.0",
-  "export_date": "2026-11-12T10:28:19.156077+00:00"
+  }
 }

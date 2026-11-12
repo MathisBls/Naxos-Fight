@@ -50,6 +50,7 @@ export const sound = {
   confirm: () => { tone(523, 1046, 0.18, 'square', 0.06); tone(784, 1568, 0.22, 'triangle', 0.05); },
   whoosh: () => noise(0.12, 0.25, 1800),
   impact: () => { tone(150, 50, 0.14, 'square', 0.12); noise(0.1, 0.35, 900); },
+  block: () => { tone(900, 500, 0.08, 'square', 0.06); noise(0.06, 0.2, 2500); },
   jump: () => tone(300, 700, 0.12, 'square', 0.04),
   land: () => noise(0.08, 0.2, 400),
   step: () => noise(0.04, 0.08, 600),

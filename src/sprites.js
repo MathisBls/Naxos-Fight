@@ -40,15 +40,24 @@ export async function loadSheet(imageSrc, dataSrc) {
   };
   const rotations = {};
   const animations = {};
+  const animationShifts = {};
   for (const row of data.spritesheet.rows) {
     if (row.type === 'rotations') row.directions.forEach((direction, column) => { rotations[direction] = makeFrame(row.row, column); });
     else {
       const key = ANIMATION_KEYS[row.animation] ?? row.animation.toLowerCase();
       animations[key] = Array.from({ length: row.frame_count }, (_, column) => makeFrame(row.row, column));
+      animationShifts[key] = row.shift_x ?? 0;
     }
   }
   const reference = rotations.east ?? Object.values(rotations)[0];
-  return { image, width, height, rotations, animations, baseline: reference.bottom + 1, bodyTop: reference.top };
+  return { image, width, height, rotations, animations, animationShifts, baseline: reference.bottom + 1, bodyTop: reference.top };
+}
+
+export function drawBust(ctx, sheet, frame, x, y, size) {
+  const centerX = Math.round((frame.left + frame.right) / 2);
+  const sourceX = Math.max(0, centerX - Math.floor(size / 2));
+  const sourceY = Math.max(0, frame.top - 1);
+  ctx.drawImage(sheet.image, frame.sx + sourceX, frame.sy + sourceY, size, size, x, y, size, size);
 }
 
 export function drawFrame(ctx, sheet, frame, x, groundY, { flip = false, scaleY = 1, splitRow = null, upperOffset = 0 } = {}) {
