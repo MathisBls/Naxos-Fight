@@ -2,14 +2,18 @@ import { sound } from './audio.js';
 import { COLORS, frame, measure, panel, segmentBar, shadowEllipse, stripes, text, verticalGradient, wrapText } from './draw.js';
 import { t } from './i18n.js';
 import { ROSTER_SLOTS, STAT_MAX } from './roster.js';
-import { drawFrame } from './sprites.js';
+import { drawBust, drawFrame } from './sprites.js';
 
 const TURNTABLE = ['south', 'south-west', 'west', 'north-west', 'north', 'north-east', 'east', 'south-east'];
 const TURNTABLE_HOLD_SECONDS = 1.8;
 const TURNTABLE_STEP_SECONDS = 0.22;
 const SLOT_SIZE = 26;
 const SLOT_GAP = 4;
+const SLOT_STRIPE_ALPHA = 0.35;
+const SLOT_STRIPE_SPACING = 4;
 const BLINK_SECONDS = 0.5;
+const NAME_SIZE = 16;
+const NAME_SIZE_SMALL = 8;
 const STATS = [['power', 'statPower', COLORS.red], ['speed', 'statSpeed', COLORS.cyan], ['stamina', 'statStamina', '#7ee08a']];
 
 let rememberedIndex = 0;
@@ -94,7 +98,9 @@ export function createSelectScene({ roster, onPick, onBack }) {
       const previewWidth = 96;
       const infoX = portraitX + portraitWidth + 14;
       const infoWidth = Math.max(120, width - infoX - previewWidth - 16);
-      text(ctx, fighter ? t(fighter.nameKey) : t('lockedName'), infoX, 34, { size: 16 });
+      const name = fighter ? t(fighter.nameKey) : t('lockedName');
+      const nameSize = measure(ctx, name, NAME_SIZE) <= infoWidth ? NAME_SIZE : NAME_SIZE_SMALL;
+      text(ctx, name, infoX, nameSize === NAME_SIZE ? 34 : 40, { size: nameSize });
       text(ctx, fighter ? t(fighter.roleKey) : t('locked'), infoX, 54, { color: fighter ? fighter.accent : COLORS.muted });
       if (fighter) {
         STATS.forEach(([stat, labelKey, color], row) => {
@@ -135,10 +141,19 @@ export function createSelectScene({ roster, onPick, onBack }) {
         const isCurrent = slot === index;
         const blinkOn = Math.floor(time / BLINK_SECONDS) % 2 === 0;
         frame(ctx, x, y, SLOT_SIZE, SLOT_SIZE, isCurrent ? (blinkOn ? COLORS.gold : COLORS.goldDeep) : COLORS.panelLight, isCurrent ? 2 : 1);
-        ctx.fillStyle = occupant ? '#23306a' : COLORS.locked;
+        ctx.fillStyle = occupant ? COLORS.slot : COLORS.locked;
         ctx.fillRect(x, y, SLOT_SIZE, SLOT_SIZE);
-        if (occupant) ctx.drawImage(occupant.thumbImage, x + 1, y + 1, SLOT_SIZE - 2, SLOT_SIZE - 2);
-        else text(ctx, '?', x + SLOT_SIZE / 2, y + 9, { align: 'center', color: COLORS.muted });
+        if (occupant) {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.beginPath();
+          ctx.rect(0, 0, SLOT_SIZE, SLOT_SIZE);
+          ctx.clip();
+          ctx.globalAlpha = SLOT_STRIPE_ALPHA;
+          stripes(ctx, SLOT_SIZE, SLOT_SIZE, occupant.accent, SLOT_STRIPE_SPACING);
+          ctx.restore();
+          drawBust(ctx, occupant.sheetData, occupant.sheetData.rotations.south, x + 1, y + 1, SLOT_SIZE - 2);
+        } else text(ctx, '?', x + SLOT_SIZE / 2, y + 9, { align: 'center', color: COLORS.muted });
       }
 
       const hintY = height - 13;
