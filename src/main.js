@@ -1,4 +1,5 @@
 import { sound } from './audio.js';
+import { music } from './music.js';
 import { COLORS, text, verticalGradient } from './draw.js';
 import { t } from './i18n.js';
 import { CHARACTERS } from './roster.js';
@@ -13,7 +14,7 @@ const TARGET_HEIGHT = 240;
 const MIN_WIDTH = 400;
 const MAX_FRAME_SECONDS = 1 / 30;
 const FADE_SECONDS = 0.18;
-const BLOCKED_KEYS = new Set(['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
+const BLOCKED_KEYS = new Set(['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab']);
 
 const canvas = document.getElementById('screen');
 const ctx = canvas.getContext('2d');
@@ -40,6 +41,7 @@ window.addEventListener('keydown', event => {
   if (!held.has(event.code)) pressed.add(event.code);
   held.add(event.code);
   sound.unlock();
+  music.resume();
 });
 window.addEventListener('keyup', event => held.delete(event.code));
 window.addEventListener('blur', () => held.clear());
@@ -90,7 +92,6 @@ async function loadRoster() {
   return Promise.all(CHARACTERS.map(async character => ({
     ...character,
     portraitImage: await loadImage(character.portrait),
-    thumbImage: await loadImage(character.thumb),
     sheetData: await loadSheet(character.sheet, character.sheetData),
   })));
 }
@@ -98,8 +99,18 @@ async function loadRoster() {
 async function boot() {
   requestAnimationFrame(loop);
   const [roster, logo] = await Promise.all([loadRoster(), loadImage(LOGO_SRC).catch(() => null), document.fonts.load('8px "Press Start 2P"')]);
-  const openTitle = () => createTitleScene({ logo, onStart: () => goTo(openSelect) });
-  const openSelect = () => createSelectScene({ roster, onBack: () => goTo(openTitle), onPick: fighter => goTo(() => createStageScene({ fighter, onBack: () => goTo(openSelect) })) });
+  const openTitle = () => {
+    music.play('title');
+    return createTitleScene({ logo, onStart: () => goTo(openSelect) });
+  };
+  const openSelect = () => {
+    music.play('select');
+    return createSelectScene({ roster, onBack: () => goTo(openTitle), onPick: fighter => goTo(() => openStage(fighter)) });
+  };
+  const openStage = fighter => {
+    music.play('battle');
+    return createStageScene({ fighter, onBack: () => goTo(openSelect) });
+  };
   scene = openTitle();
 }
 
