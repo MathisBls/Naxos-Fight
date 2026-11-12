@@ -32,7 +32,10 @@ export function createTitleScene({ logo, onStart }) {
       if (logo) {
         const scale = Math.min((width * LOGO_MAX_WIDTH_RATIO) / logo.width, (height * LOGO_MAX_HEIGHT_RATIO) / logo.height);
         const drawWidth = Math.round(logo.width * scale), drawHeight = Math.round(logo.height * scale);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(logo, Math.round((width - drawWidth) / 2), Math.round(height * 0.38 - drawHeight / 2) + float, drawWidth, drawHeight);
+        ctx.imageSmoothingEnabled = false;
       } else {
         text(ctx, t('gameTitle'), width / 2, height * 0.34 + float, { align: 'center', size: 24, color: COLORS.cyan });
       }
